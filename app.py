@@ -6,12 +6,12 @@ app = Flask(__name__)
 
 # Kanal listesi
 kanallar = {
-    tvi: {"dosya": "tvi.m3u8", "slug": "tvi"},
-    tvi_internacional: {"dosya": "tvi_internacional.m3u8", "slug": "tvi_internacional"},
-    cnnpt: {"dosya": "cnnpt.m3u8", "slug": "cnn"},
-    tvific: {"dosya": "tvific.m3u8", "slug": "tvi_ficcao"},
-    tvireality: {"dosya": "tvireality.m3u8", "slug": "tvi_reality"},
-    vmais: {"dosya": "vmais.m3u8", "slug": "vmais"},
+    "tvi": {"dosya": "tvi.m3u8", "slug": "tvi"},
+    "tviint": {"dosya": "tvi_internacional.m3u8", "slug": "tvi_internacional"},
+    "cnnpt": {"dosya": "cnnpt.m3u8", "slug": "cnn"},
+    "tvific": {"dosya": "tvific.m3u8", "slug": "tvi_ficcao"},
+    "tvireality": {"dosya": "tvireality.m3u8", "slug": "tvi_reality"},
+    "vmais": {"dosya": "vmais.m3u8", "slug": "vmais"},
 }
 
 # Token ve zaman takibi için global bir önbellek yapısı
