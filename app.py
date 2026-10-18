@@ -56,7 +56,7 @@ def get_wms_auth_sign():
   return token_cache["contents"]
 
 
-@app.route("/kanal/<int:kanal_id>")
+@app.route("/kanal/<string:kanal_id>")
 def kanal_yonlendir(kanal_id):
   if kanal_id not in kanallar:
     return "Kanal bulunamadı", 404
@@ -96,4 +96,4 @@ def restart_cache():
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))
-  app.run(debug=True, port=port)
+  app.run(host="0.0.0.0", port=port, debug=False)
