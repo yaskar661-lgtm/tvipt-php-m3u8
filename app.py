@@ -22,18 +22,19 @@ token_cache = {"contents": None, "last_updated": 0}
 CACHE_DURATION = 4 * 60 * 60
 
 
-def get_wms_auth_sign():
+def get_wms_auth_sign(force_refresh=False):
   """Token'ı çeker.
 
-  Eğer son güncellemenin üzerinden 4 saat geçdiyse yeniler, geçmediyse
-  önbellekteki geçerli token'ı döndürür.
+  Eğer force_refresh True ise ya da son güncellemenin üzerinden 4 saat
+  geçdiyse yeniler.
   """
   global token_cache
   current_time = time.time()
 
-  # Eğer token hiç alınmadıysa veya üzerinden 4 saatten fazla geçtiyse yeniden çek
+  # Eğer zorunlu yenileme istendiyse veya süre dolduysa yeniden çek
   if (
-      token_cache["contents"] is None
+      force_refresh
+      or token_cache["contents"] is None
       or (current_time - token_cache["last_updated"]) > CACHE_DURATION
   ):
     url = "https://services.iol.pt/matrix?userId="
@@ -79,16 +80,17 @@ def kanal_yonlendir(kanal_id):
 def restart_cache():
   """Önbelleği sıfırlar ve anında yeni bir token çeker."""
   global token_cache
+  
   # Önbelleği sıfırla
   token_cache = {"contents": None, "last_updated": 0}
 
-  # Yeni token'ı hemen tetikle
+  # Yeni token'ı zorla hemen tetikle
   new_token = get_wms_auth_sign(force_refresh=True)
 
   if new_token:
     return (
-        "Önbellek başarıyla sıfırlandı ve yeni token"
-        " oluşturuldu! ✅<br><a href='/kanal/1'>Kanallara dönmek için tıkla</a>",
+        "Önbellek başarıyla sıfırlandı ve yeni token oluşturuldu! ✅<br>"
+        "<a href='/kanal/tvi'>Kanallara dönmek için tıkla</a>",
         200,
     )
   else:
